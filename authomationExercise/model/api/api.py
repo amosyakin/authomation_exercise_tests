@@ -34,3 +34,16 @@ def put_brands_to_list(endpoint_url):
         response = api_request("PUT", url)
 
     return response
+
+def post_search_product(endpoint_url):
+    url = endpoint_url + '/searchProduct'
+    payload = {'search_product': 'top'}
+    files = [
+
+    ]
+    headers = {}
+
+    with allure.step("Вызов запроса на поиск по продукту"):
+        response = api_request("POST", url, data=payload, headers=headers, files=files)
+
+    return response
