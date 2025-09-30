@@ -35,15 +35,18 @@ def put_brands_to_list(endpoint_url):
 
     return response
 
-def post_search_product(endpoint_url):
+def post_search_product(endpoint_url, payload: dict = None):
     url = endpoint_url + '/searchProduct'
-    payload = {'search_product': 'top'}
-    files = [
-
-    ]
-    headers = {}
 
     with allure.step("Вызов запроса на поиск по продукту"):
-        response = api_request("POST", url, data=payload, headers=headers, files=files)
+        response = api_request("POST", url, data=payload)
+
+    return response
+
+def post_verify_login(endpoint_url, payload: dict = None):
+    url = endpoint_url + '/verifyLogin'
+
+    with allure.step("Вызов запроса на верификацию пользователя"):
+        response = api_request('POST', url, data=payload)
 
     return response

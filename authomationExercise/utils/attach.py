@@ -23,14 +23,23 @@ def add_api_attach(response: Response):
 
     if response.request.body:
         request_body = response.request.body
+        request_content_type = response.request.headers.get('Content-Type', '')
         if isinstance(request_body, bytes):
             request_body = request_body.decode('utf-8')
-        allure.attach(
-            body=json.dumps(json.loads(request_body), indent=4, ensure_ascii=True),
-            name="Request body",
-            attachment_type=AttachmentType.JSON,
-            extension="json",
-        )
+
+        if "json" in request_content_type.lower():
+            allure.attach(
+                body=json.dumps(json.loads(request_body), indent=4, ensure_ascii=True),
+                name="Request body",
+                attachment_type=AttachmentType.JSON,
+                extension="json",
+            )
+        else:
+            allure.attach(
+                body=request_body,
+                name="Request body",
+                attachment_type=AttachmentType.TEXT
+            )
     try:
         allure.attach(
             body=json.dumps(response.json(), indent=4, ensure_ascii=True),

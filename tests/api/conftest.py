@@ -1,11 +1,8 @@
-import os
-
 import pytest
-from dotenv import load_dotenv
 
-load_dotenv()
+import config
 
-domain_url = os.getenv('DOMAIN_URL')
+domain_url = config.domain_url
 
 @pytest.fixture
 def endpoint_url():
